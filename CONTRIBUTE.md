@@ -46,7 +46,8 @@ Clone the repo and run `cargo run` from each folder (e.g. `cli` or `server`).
 - Run `cargo run` to start the server
 - Go to `browser` and run `pnpm dev` to start the browsre
 - Visit your `localhost` in your locally running `atomic-data-browser` instance: (e.g. `http://localhost:8080/app/show?subject=http%3A%2F%2Flocalhost`)
-- use `cargo watch -- cargo run` to automatically recompile `atomic-server` when you push new assets using `pmpm build-server` in `atomic-data-browser`. This can be useful if you're debugging specific features that you can't reproduce while the front-end is hosted in vite.
+- use `cargo watch -- cargo run --bin atomic-server -- --env-file server/.env` to automatically recompile `atomic-server` when you update code or JS assets.
+- If you want to debug emails: `brew install mailhog` => `mailhog` => `http://localhost:8025`
 
 ## Improve local compilation speed
 
