@@ -1,4 +1,5 @@
-//! The Storelike Trait contains many useful methods for maniupulting / retrieving data.
+//! The Storelike Trait contains many useful methods for manipulating / retrieving data.
+//! It is the basis for both the in-memory [Store] and the on-disk [Db]
 
 use tracing::info;
 
@@ -8,9 +9,10 @@ use crate::{
     commit::CommitResponse,
     errors::AtomicError,
     hierarchy,
+    query::QueryResult,
     schema::{Class, Property},
     store::LOCAL_STORE_URL_STR,
-    urls,
+    Query,
 };
 use crate::{errors::AtomicResult, parse::parse_json_ad_string};
 use crate::{mapping::Mapping, values::Value, Atom, Resource};
