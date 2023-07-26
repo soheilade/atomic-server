@@ -2,10 +2,10 @@
 //! Has methods for saving resources and getting properties inside them.
 
 use crate::commit::{CommitOpts, CommitResponse};
-use crate::storelike::Query;
 use crate::urls;
 use crate::utils::random_string;
 use crate::values::{SubResource, Value};
+use crate::Query;
 use crate::{commit::CommitBuilder, errors::AtomicResult};
 use crate::{
     mapping::is_url,

@@ -253,9 +253,8 @@ pub fn populate_collections(store: &impl Storelike) -> AtomicResult<()> {
 pub fn populate_endpoints(store: &crate::Db) -> AtomicResult<()> {
     use crate::atomic_url::Routes;
 
-    let endpoints = crate::plugins::default_endpoints();
     let endpoints_collection = store.get_server_url().set_route(Routes::Endpoints);
-    for endpoint in endpoints {
+    for endpoint in crate::endpoints::build_default_endpoints() {
         let mut resource = endpoint.to_resource(store)?;
         resource.set_propval(
             urls::PARENT.into(),
@@ -264,25 +263,6 @@ pub fn populate_endpoints(store: &crate::Db) -> AtomicResult<()> {
         )?;
         resource.save_locally(store)?;
     }
-    Ok(())
-}
-
-#[cfg(feature = "db")]
-/// Adds default Endpoints (versioning) to the Db.
-/// Makes sure they are fetchable
-pub fn populate_importer(store: &crate::Db) -> AtomicResult<()> {
-    let base = store
-        .get_self_url()
-        .ok_or("No self URL in this Store - required for populating importer")?;
-    let mut importer = crate::Resource::new(urls::construct_path_import(&base));
-    importer.set_class(urls::IMPORTER);
-    importer.set_propval(
-        urls::PARENT.into(),
-        Value::AtomicUrl(base.to_string()),
-        store,
-    )?;
-    importer.set_propval(urls::NAME.into(), Value::String("Import".into()), store)?;
-    importer.save_locally(store)?;
     Ok(())
 }
 

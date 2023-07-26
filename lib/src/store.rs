@@ -184,7 +184,7 @@ impl Storelike for Store {
     fn get_server_url(&self) -> &AtomicUrl {
         // TODO Should be implemented later when companion functionality is here
         // https://github.com/atomicdata-dev/atomic-server/issues/6
-        "local:store"
+        &LOCAL_STORE_URL
     }
 
     fn get_self_url(&self) -> Option<&AtomicUrl> {

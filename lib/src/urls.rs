@@ -153,7 +153,4 @@ pub const PATH_REGISTER: &str = "/register";
 pub const PATH_CONFIRM_EMAIL: &str = "/confirm-email";
 pub const PATH_ADD_PUBKEY: &str = "/add-public-key";
 pub const PATH_CONFIRM_PUBKEY: &str = "/confirm-add-public-key";
-
-pub const PATH_IMPORT: &str = "/import";
-pub const PATH_FETCH_BOOKMARK: &str = "/fetch-bookmark";
 pub const PATH_QUERY: &str = "/query";
