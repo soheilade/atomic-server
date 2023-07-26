@@ -36,7 +36,14 @@ export interface TestConfig {
   initialTest: boolean;
 }
 
-const { demoInviteName, serverUrl, frontEndUrl, initialTest } = testConfig;
+const {
+  demoFileName,
+  demoFile,
+  demoInviteName,
+  serverUrl,
+  frontEndUrl,
+  initialTest,
+} = testConfig;
 
 const timestamp = () => new Date().toLocaleTimeString();
 const editableTitle = '[data-test="editable-title"]';
@@ -102,9 +109,11 @@ test.describe('data-browser', async () => {
     // Sign out
     await page.click('text=user settings');
     await page.click('[data-test="sign-out"]');
-    await expect(page.locator('text=Enter your Agent secret')).toBeVisible();
+    await page.click('text=Sign in');
+    await expect(page.locator('#current-password')).toBeVisible();
     await page.reload();
-    await expect(page.locator('text=Enter your Agent secret')).toBeVisible();
+    await page.click('text=Sign in');
+    await expect(page.locator('#current-password')).toBeVisible();
   });
 
   test('sign up and edit document atomicdata.dev', async ({ page }) => {
@@ -315,9 +324,7 @@ test.describe('data-browser', async () => {
     await page2.goto(frontEndUrl);
     await openSubject(page2, driveURL);
     // TODO set current drive by opening the URL
-    await expect(
-      await page2.locator('text=Unauthorized').first(),
-    ).toBeVisible();
+    await expect(await page2.locator('text=Unauthorized')).toBeVisible();
 
     // Create invite
     await page.click('button:has-text("Send invite")');
@@ -353,7 +360,7 @@ test.describe('data-browser', async () => {
       page.waitForEvent('filechooser'),
       page.click('button:has-text("Upload file")'),
     ]);
-    await fileChooser.setFiles(demoFile());
+    await fileChooser.setFiles(demoFile);
     await page.click(`[data-test="file-pill"]:has-text("${demoFileName}")`);
     const image = page.locator('[data-test="image-viewer"]');
     await expect(image).toBeVisible();
@@ -440,8 +447,8 @@ test.describe('data-browser', async () => {
 
     await page.click(sideBarDriveSwitcher);
     // temp disable for trailing slash
-    // const dropdownId = await page
-    //   .locator(sideBarDriveSwitcher)
+    await page.click(`[id="${dropdownId}"] >> text=Atomic Data`);
+    await expect(page.locator(currentDriveTitle)).toHaveText('Atomic Data');
     //   .getAttribute('aria-controls');
     // await page.click(`[id="${dropdownId}"] >> text=Atomic Data`);
     // await expect(page.locator(currentDriveTitle)).toHaveText('Atomic Data');
@@ -690,6 +697,7 @@ async function signIn(page: Page) {
   // If there are any issues with this agent, try creating a new one https://atomicdata.dev/invites/1
   const test_agent =
     'eyJzdWJqZWN0IjoiaHR0cHM6Ly9hdG9taWNkYXRhLmRldi9hZ2VudHMvaElNWHFoR3VLSDRkM0QrV1BjYzAwUHVFbldFMEtlY21GWStWbWNVR2tEWT0iLCJwcml2YXRlS2V5IjoiZkx0SDAvY29VY1BleFluNC95NGxFemFKbUJmZTYxQ3lEekUwODJyMmdRQT0ifQ==';
+  await page.click('text=Sign in');
   await page.click('#current-password');
   await page.fill('#current-password', test_agent);
   await expect(await page.locator('text=Edit profile')).toBeVisible();

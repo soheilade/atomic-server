@@ -47,7 +47,7 @@ Clone the repo and run `cargo run` from each folder (e.g. `cli` or `server`).
 - Go to `browser` and run `pnpm dev` to start the browsre
 - Visit your `localhost` in your locally running `atomic-data-browser` instance: (e.g. `http://localhost:8080/app/show?subject=http%3A%2F%2Flocalhost`)
 - use `cargo watch -- cargo run --bin atomic-server -- --env-file server/.env` to automatically recompile `atomic-server` when you update code or JS assets.
-- If you want to debug emails: `brew install mailhog` => `mailhog` => `http://localhost:8025`
+- If you want to debug emails: `brew install mailhog` => `mailhog` => `http://localhost:8025` and add `ATOMIC_SMTP_HOST=localhost` `ATOMIC_SMTP_PORT=1025` to your `.env`.
 
 ## Improve local compilation speed
 

@@ -1,5 +1,6 @@
 import {
   removeCookieAuthentication,
+  serverSupportsRegister,
   setCookieAuthentication,
 } from './authentication.js';
 import { EventManager } from './EventManager.js';
@@ -64,6 +65,10 @@ type StoreEventHandlers = {
 
 /** Returns True if the client has WebSocket support */
 const supportsWebSockets = () => typeof WebSocket !== 'undefined';
+
+export type ServerSupports = {
+  emailRegister: boolean;
+};
 
 /**
  * An in memory store that has a bunch of usefful methods for retrieving Atomic
@@ -182,7 +187,11 @@ export class Store {
     className = className ? className : 'things';
 
     if (parentSubject) {
-      return `${parentSubject}/${className}/${random}`;
+      if (parentSubject.endsWith('/')) {
+        return `${parentSubject}${random}`;
+      } else {
+        return `${parentSubject}/${random}`;
+      }
     }
 
     return `${this.getServerUrl()}/${className}/${random}`;
@@ -602,6 +611,13 @@ export class Store {
     } else {
       console.warn('WebSockets not supported, no window available');
     }
+  }
+
+  /** Checks which features the current Server instance supports */
+  public async getServerSupports(): Promise<ServerSupports> {
+    return {
+      emailRegister: await serverSupportsRegister(this),
+    };
   }
 
   /**
