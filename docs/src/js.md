@@ -1,7 +1,7 @@
 {{#title @tomic/lib: The Atomic Data library for typescript/javascript}}
 # @tomic/lib: The Atomic Data library for typescript/javascript
 
-[**docs**](https://atomic-lib.netlify.app/modules/_tomic_lib)
+[**Open the full documentation**](https://atomic-lib.netlify.app/modules/_tomic_lib)
 
 Core typescript library for fetching data, handling JSON-AD parsing, storing data, signing Commits, setting up WebSockets and more.
 
