@@ -2,6 +2,18 @@
 
 This changelog covers all three packages, as they are (for now) updated as a whole
 
+## UNRELEASED
+
+### @tomic/lib
+
+- [#840](https://github.com/atomicdata-dev/atomic-server/issues/840) Added `store.search()`.
+
+### @tomic/cli
+
+- [#837](https://github.com/atomicdata-dev/atomic-server/issues/837) Fix timestamp is mapped to string instead of number.
+- [#831](https://github.com/atomicdata-dev/atomic-server/issues/831) Give clear error when trying to generate types from a non ontology resource
+- Use type import in generated files.
+
 ## v0.37.0
 
 ### Atomic Browser
